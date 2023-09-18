@@ -1,0 +1,161 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: grid;
+    background-color: black;
+    place-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container{
+    background-color:white ;
+    width: 770px;
+    display: flex;
+    flex-direction: column;
+}
+
+/*header*/
+.header{
+    display: flex;
+    padding: 10px;
+    justify-content: space-around;
+
+}
+
+/*week days*/
+.weekdays{
+    width: 100%;
+    display: flex;
+    background-color: black;
+    color: white;
+}
+.weekdays div{
+    width: 100px;
+    padding: 10px;
+    text-align: center;
+}
+
+/*date*/
+.date{
+   width: 100%;
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   margin:auto;
+}
+.day{
+    width: 100px;  
+    height: 100px;
+    padding: 10px; 
+    cursor: pointer;
+    margin: 5px;
+    box-sizing: border-box;
+    border: 0.5px black solid;
+    border-radius: 20px;
+}
+.emptydays{
+    width: 100px;  
+    height: 100px;
+    padding: 10px; 
+    cursor: default;
+    margin: 5px;
+    background-color: rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+    border: 0.5px black solid;
+    border-radius: 20px;
+}
+
+/*event*/
+.event
+{
+padding: 5px;
+background-color: green;
+color: white;
+align-self: baseline;
+overflow:scroll;
+border-radius: 30%;
+}
+#curdate
+{
+    background-color: wheat;
+}
+#modal{
+    display: none;
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+       height: 100vh;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+
+/*add event*/
+
+#addevent{
+    display: none;
+    width: 200px;
+    padding: 5px;
+    position: absolute;
+    z-index: 20;
+    color: black;
+    background-color: white;
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: none;
+}
+#addevent input{
+    width: 95%;
+    padding: 2px;
+    color: black;
+    align-self: center;
+}
+#addevent button{
+    align-self: center;
+    margin:10px 5px ;
+    width: 30%;
+    border: none;
+    cursor: pointer;
+    
+}
+#btnsave{
+    background-color: greenyellow;
+}
+.btnclose{
+    background-color: black;
+    color: aliceblue;
+}
+
+
+/*view event*/
+
+#viewevent{
+    display: none;
+    width: 200px;
+    padding: 5px;
+    position: absolute;
+    z-index: 30;
+    color: black;
+    background-color: white;
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: none;
+}
+
+#viewevent button{
+    align-self: center;
+    margin:10px 5px ;
+    width: 30%;
+    border: none;
+    cursor: pointer;
+    
+}
+#btndelete{
+    background-color: red;
+}
