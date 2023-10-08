@@ -4,13 +4,25 @@
 }
 
 body{
-    display: grid;
+    display: flex;
     background-color: black;
     place-items: center;
     width: 100vw;
     height: 100vh;
 }
-
+.addmore{
+    color: black;
+    margin-left: 200px;
+    margin-right: 200px;
+    border: red solid 2px;
+    background-color: aqua;
+    padding: 10px;
+    width: 15%;
+    text-align: center;
+    border-radius: 50px;
+    cursor: pointer;
+        
+}
 .container{
     background-color:white ;
     width: 770px;

@@ -1,3 +1,3 @@
-import { loadcalender,btnevent} from "./common";
+import { loadcalender,btnevent,addmore} from "./common";
 loadcalender()
 btnevent()

@@ -13,18 +13,18 @@
             <div class="head">
             <h2>ADD EVENTS</h2>
             </div>
-            <form action="/">
+            <form  method="post" action="/">
                 <div class="form">
                     <label for="date">Date</label>
                     <div class="date">                   
-                    <input type="text" id="date" placeholder="DD">
-                    <input type="text" id="month" placeholder="MM">
-                    <input type="text" id="year" placeholder="YYYY">
+                    <input type="text" id="date" placeholder="DD" name="d">
+                    <input type="text" id="month" placeholder="MM" name="m">
+                    <input type="text" id="year" placeholder="YYYY" name="y">
                     </div>
                     <label for="event">Event</label>
-                    <input type="text" id="event">
+                    <input type="text" id="event" name="eve">
                     <label for="msg">Message</label>
-                    <input type="text" id="msg"></input> 
+                    <input type="text" id="msg" name="msg"></input> 
                 </div>
                 <input type="submit" id="submit">
             </form>
@@ -33,6 +33,7 @@
     </div>
     <script >
         const f=document.querySelector(".form")
+              
               const addmore=()=>{
                   var no=0
                   const btn=document.querySelector("#addm")
@@ -49,16 +50,19 @@
                       dd.id="date"
                       dd.type="text"
                       dd.placeholder="DD"
+                      dd.name="d"
                       date.append(dd)
                       const mm=document.createElement("input")
                       mm.id="month"
                       mm.type="text"
                       mm.placeholder="MM"
+                      mm.name="m"
                       date.append(mm)
                       const yy=document.createElement("input")
                       yy.id="year"
                       yy.type="text"
                       yy.placeholder="YYYY"
+                      yy.name="y"
                       date.append(yy)
               
                       const evel=document.createElement("label")
@@ -66,13 +70,13 @@
                       const eve=document.createElement("input")
                       eve.type="text"
                       eve.id="event"
-              
+                      eve.name="eve"
                       const msgl=document.createElement("label")
                       msgl.innerHTML="Message"  
                       const msg=document.createElement("input")
                       msg.type="text"
                       msg.id="msg"
-              
+                      msg.name="msg"
                       f.appendChild(subhead)
                       f.appendChild(dl)
                       f.appendChild(date)
