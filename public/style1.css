@@ -1,0 +1,98 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    background-color:#FFFF;
+    justify-content: center;
+    width: 100%;
+    padding-top:5% ;
+    overflow:hidden;
+}
+
+.container .box{
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #8AAAE5;
+    border-radius: 80px;
+}
+.head{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.box button{
+    width: 15%;
+    border: none;
+    border-radius: 200%;
+    padding: 15px;
+    background-color:burlywood ;
+}
+.box button:hover{
+    background-color:rgb(130, 135, 222) ;
+}
+.box form{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 5px;
+}
+
+.box .form{
+    display: flex;
+    flex-direction: column;
+}
+.date{
+    display: flex;
+    flex-direction: row;
+    
+}
+.date #date{
+    width: 15%;
+    margin-left: 30px;
+}
+.date #month{
+    width: 15%;
+}
+.date #year{
+    width: 30%;
+    margin-right: 30px;
+}
+.box input{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    border-radius: 50px;
+    font-size: large;
+    font-weight: 800;
+    font-style: normal;
+    padding: 10px;
+}
+.box h2{
+    text-align: center;
+    padding: 20px;
+    font-weight: bolder;
+    font-size: 30px;;
+}
+#submit{
+    width: 30%;
+    margin-top: 50px;
+    background-color:#FFFF ;
+    transition-duration: 0.9ms;
+}
+#submit:hover{
+    background-color:rgb(130, 135, 222) ;
+}
+.box label{
+    width: 50%;
+    margin-left:12%;
+    color:#FFFF;
+    margin-top: 30px;
+    font-weight: bold;
+}
+#sub{
+    text-align: center;
+}
