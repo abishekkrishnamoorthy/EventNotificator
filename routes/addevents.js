@@ -23,11 +23,25 @@ router.post('/',(req,res)=>{
       var dd=`${date}-${month}-${year}`
       console.log(dd)
       var sql = "INSERT INTO `defaultevent`(`date`, `events`) VALUES ('"+dd+"','"+eve+"')";
-      con.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log("1 record inserted");
+      var sql1="UPDATE `defaultevent` SET `events`='"+eve+"' WHERE `date`='"+dd+"'";
+      var sql2="SELECT * FROM `defaultevent` WHERE `date`='"+dd+"'"
+      con.query(sql2, function (err, result) {
+        if(result.length>0){
+             con.query(sql1, function (err, result){
+                 if (err) throw err
+                 console.log("1 record updated");        
+            })
+        }
+        else{
+            con.query(sql, function (err, result){
+                if (err) throw err
+                console.log("1 record inserted");        
+           })
+        }
   });
-}}else{
+}
+}
+else{
     var date=data.d
     var month=data.m
     var year=data.y
@@ -35,16 +49,29 @@ router.post('/',(req,res)=>{
     var msg=data.msg
     var dd=`${date}-${month}-${year}`
     console.log(dd)
-    var sql = "INSERT INTO `defaultevent`(`date`, `events`) VALUES ('"+dd+"','"+eve+"')";;
-    con.query(sql, function (err, result) {
-    if (err) throw err;
-    console.log("1 record inserted");
-});}
+    var sql = "INSERT INTO `defaultevent`(`date`, `events`) VALUES ('"+dd+"','"+eve+"')";
+    var sql1="UPDATE `defaultevent` SET `events`='"+eve+"' WHERE `date`='"+dd+"'";
+    var sql2="SELECT * FROM `defaultevent` WHERE `date`='"+dd+"'"
+    con.query(sql2, function (err, result) {
+        if(result.length>0){
+             con.query(sql1, function (err, result){
+                 if (err) throw err
+                 console.log("1 record updated");        
+            })
+        }
+        else{
+            con.query(sql, function (err, result){
+                if (err) throw err
+                console.log("1 record inserted");        
+           })
+        }
+  });
         fs.writeFile(path.join(__dirname,'..','data','addeventsdata.json'),ev,(err)=>{
             if (!err) console.log("complete")
         })
 
         res.redirect('/');
+}
 })
 
 router.get('/common',(req,res)=>{
