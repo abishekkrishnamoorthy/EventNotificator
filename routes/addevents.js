@@ -3,6 +3,7 @@ const router=express.Router()
 const path=require('path')
 const con=require("../connection/sql")
 const fs=require("fs")
+const calname="abi"
 const { default: parseJSON } = require('date-fns/parseJSON')
 router.get('/addevents',(req,res)=>{
     res.sendFile(path.join(__dirname,'..','views','addmore.html'))
