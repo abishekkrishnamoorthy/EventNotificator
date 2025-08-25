@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Calendar App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1><i class="fas fa-calendar-alt"></i> Calendar & Todo Manager</h1>
+            <div class="header-actions">
+                <button class="btn btn-primary" onclick="showModal('eventModal')">
+                    <i class="fas fa-plus"></i> Add Event
+                </button>
+                <button class="btn btn-secondary" onclick="showModal('groupModal')">
+                    <i class="fas fa-users"></i> Create Group
+                </button>
+                <button class="btn btn-info" onclick="showModal('todoModal')">
+                    <i class="fas fa-tasks"></i> Add Todo
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Calendar Section -->
+            <section class="calendar-section">
+                <div class="calendar-header">
+                    <button class="btn btn-outline" onclick="previousMonth()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <h2 id="currentMonth"></h2>
+                    <button class="btn btn-outline" onclick="nextMonth()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar will be generated here -->
+                </div>
+            </section>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Todo List -->
+                <div class="todo-section">
+                    <h3><i class="fas fa-tasks"></i> Todo List</h3>
+                    <div id="todoList" class="todo-list">
+                        <!-- Todos will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Groups -->
+                <div class="groups-section">
+                    <h3><i class="fas fa-users"></i> Groups</h3>
+                    <div id="groupsList" class="groups-list">
+                        <!-- Groups will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Upcoming Events -->
+                <div class="upcoming-section">
+                    <h3><i class="fas fa-clock"></i> Upcoming Events</h3>
+                    <div id="upcomingEvents" class="upcoming-list">
+                        <!-- Upcoming events will be loaded here -->
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Event Modal -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-calendar-plus"></i> Add Event</h3>
+                <button class="close-btn" onclick="hideModal('eventModal')">&times;</button>
+            </div>
+            <form id="eventForm" class="modal-form">
+                <div class="form-group">
+                    <label for="eventTitle">Event Title</label>
+                    <input type="text" id="eventTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventDate">Date</label>
+                    <input type="date" id="eventDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventDescription">Description</label>
+                    <textarea id="eventDescription" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="eventGroup">Group (Optional)</label>
+                    <select id="eventGroup">
+                        <option value="">Select a group</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="eventAssignees">Assign to (Email addresses, comma separated)</label>
+                    <input type="text" id="eventAssignees" placeholder="user1@email.com, user2@email.com">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="hideModal('eventModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Event</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Todo Modal -->
+    <div id="todoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-tasks"></i> Add Todo</h3>
+                <button class="close-btn" onclick="hideModal('todoModal')">&times;</button>
+            </div>
+            <form id="todoForm" class="modal-form">
+                <div class="form-group">
+                    <label for="todoTitle">Todo Title</label>
+                    <input type="text" id="todoTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="todoDate">Due Date</label>
+                    <input type="date" id="todoDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="todoDescription">Description</label>
+                    <textarea id="todoDescription" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="hideModal('todoModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Todo</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Group Modal -->
+    <div id="groupModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-users"></i> Create Group</h3>
+                <button class="close-btn" onclick="hideModal('groupModal')">&times;</button>
+            </div>
+            <form id="groupForm" class="modal-form">
+                <div class="form-group">
+                    <label for="groupName">Group Name</label>
+                    <input type="text" id="groupName" required>
+                </div>
+                <div class="form-group">
+                    <label for="groupDescription">Description</label>
+                    <textarea id="groupDescription" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="groupMembers">Members (Email addresses, comma separated)</label>
+                    <input type="text" id="groupMembers" placeholder="member1@email.com, member2@email.com">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="hideModal('groupModal')">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create Group</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
