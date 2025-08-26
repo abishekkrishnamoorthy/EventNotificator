@@ -1,6 +1,8 @@
 const { initializeApp } = require('firebase/app');
 const { getFirestore } = require('firebase/firestore');
-const { getAuth } = require('firebase/auth');
+
+// Ensure environment variables are loaded
+require('dotenv').config();
 
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
@@ -11,8 +13,15 @@ const firebaseConfig = {
     appId: process.env.FIREBASE_APP_ID
 };
 
+// Validate that all required config values are present
+const requiredFields = ['apiKey', 'authDomain', 'projectId', 'storageBucket', 'messagingSenderId', 'appId'];
+const missingFields = requiredFields.filter(field => !firebaseConfig[field]);
+
+if (missingFields.length > 0) {
+    console.error('Missing Firebase configuration fields:', missingFields);
+    console.error('Please check your .env file and ensure all Firebase variables are set');
+    process.exit(1);
+}
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth(app);
-
-module.exports = { db, auth };
