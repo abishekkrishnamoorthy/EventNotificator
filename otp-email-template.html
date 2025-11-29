@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Email Verification - EventNotificator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333333;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    
+    .email-wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .email-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #ffffff;
+      padding: 40px 30px;
+      text-align: center;
+    }
+    
+    .email-header h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+    
+    .email-header .icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+      display: block;
+    }
+    
+    .email-body {
+      padding: 40px 30px;
+      background-color: #ffffff;
+    }
+    
+    .greeting {
+      font-size: 18px;
+      color: #333333;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+    
+    .message {
+      font-size: 16px;
+      color: #555555;
+      margin-bottom: 30px;
+      line-height: 1.8;
+    }
+    
+    .otp-container {
+      background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      margin: 30px 0;
+      border: 2px dashed #667eea;
+    }
+    
+    .otp-label {
+      font-size: 14px;
+      color: #666666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+    
+    .otp-code {
+      font-size: 42px;
+      font-weight: 700;
+      color: #667eea;
+      letter-spacing: 8px;
+      font-family: 'Courier New', monospace;
+      margin: 15px 0;
+      text-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
+    }
+    
+    .otp-expiry {
+      font-size: 14px;
+      color: #888888;
+      margin-top: 15px;
+    }
+    
+    .warning-box {
+      background-color: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px 20px;
+      border-radius: 6px;
+      margin: 25px 0;
+    }
+    
+    .warning-box p {
+      font-size: 14px;
+      color: #856404;
+      margin: 0;
+      line-height: 1.6;
+    }
+    
+    .warning-box .warning-icon {
+      display: inline-block;
+      margin-right: 8px;
+      font-size: 16px;
+    }
+    
+    .instructions {
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 25px 0;
+    }
+    
+    .instructions h3 {
+      font-size: 16px;
+      color: #333333;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    
+    .instructions ol {
+      margin-left: 20px;
+      color: #555555;
+      font-size: 14px;
+    }
+    
+    .instructions li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+    
+    .footer {
+      background-color: #f8f9fa;
+      padding: 25px 30px;
+      text-align: center;
+      border-top: 1px solid #e9ecef;
+    }
+    
+    .footer p {
+      font-size: 13px;
+      color: #888888;
+      margin: 5px 0;
+      line-height: 1.6;
+    }
+    
+    .footer .company-name {
+      font-weight: 600;
+      color: #667eea;
+      font-size: 14px;
+    }
+    
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #e0e0e0, transparent);
+      margin: 30px 0;
+    }
+    
+    @media only screen and (max-width: 600px) {
+      .email-wrapper {
+        width: 100% !important;
+        border-radius: 0;
+      }
+      
+      .email-header,
+      .email-body,
+      .footer {
+        padding: 25px 20px !important;
+      }
+      
+      .otp-code {
+        font-size: 32px !important;
+        letter-spacing: 4px !important;
+      }
+      
+      .email-header h1 {
+        font-size: 24px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <!-- Header -->
+    <div class="email-header">
+      <span class="icon">🔐</span>
+      <h1>Email Verification</h1>
+      <p style="margin-top: 10px; opacity: 0.9; font-size: 16px;">Verify your email address</p>
+    </div>
+    
+    <!-- Body -->
+    <div class="email-body">
+      <div class="greeting">
+        Hello {{user_name}}!
+      </div>
+      
+      <div class="message">
+        Thank you for signing up with <strong>EventNotificator</strong>. To complete your registration and secure your account, please verify your email address using the One-Time Password (OTP) below.
+      </div>
+      
+      <!-- OTP Container -->
+      <div class="otp-container">
+        <div class="otp-label">Your Verification Code</div>
+        <div class="otp-code">{{otp_code}}</div>
+        <div class="otp-expiry">
+          ⏰ This code will expire in {{expiry_minutes}} minutes
+        </div>
+      </div>
+      
+      <!-- Warning Box -->
+      <div class="warning-box">
+        <p>
+          <span class="warning-icon">⚠️</span>
+          <strong>Security Notice:</strong> Never share this code with anyone. Our team will never ask for your OTP.
+        </p>
+      </div>
+      
+      <!-- Instructions -->
+      <div class="instructions">
+        <h3>📋 How to verify:</h3>
+        <ol>
+          <li>Copy the 6-digit code shown above</li>
+          <li>Return to the EventNotificator verification page</li>
+          <li>Enter the code in the verification field</li>
+          <li>Click "Verify Email" to complete the process</li>
+        </ol>
+      </div>
+      
+      <div class="divider"></div>
+      
+      <div class="message" style="font-size: 14px; color: #888888; margin-bottom: 0;">
+        If you didn't request this verification code, please ignore this email or contact our support team if you have concerns about your account security.
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+      <p class="company-name">EventNotificator</p>
+      <p>Your trusted calendar and event management solution</p>
+      <p style="margin-top: 15px; font-size: 12px;">
+        This is an automated email. Please do not reply to this message.
+      </p>
+      <p style="font-size: 12px; margin-top: 5px;">
+        © 2024 EventNotificator. All rights reserved.
+      </p>
+    </div>
+  </div>
+</body>
+</html>
+

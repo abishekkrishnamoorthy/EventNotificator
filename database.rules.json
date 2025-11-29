@@ -1,0 +1,45 @@
+{
+  "rules": {
+    "events": {
+      "$eventId": {
+        ".read": "auth != null && (data.child('createdBy').val() == auth.uid || data.child('createdBy').val() == auth.token.email || (data.child('assignedTo').exists() && (data.child('assignedTo').hasChildren() ? data.child('assignedTo').val().includes(auth.uid) || data.child('assignedTo').val().includes(auth.token.email) : false)) || (data.child('groupIds').exists() && data.child('groupIds').hasChildren() && root.child('groups').hasChildren() && data.child('groupIds').val().some(function(groupId) { return root.child('groups').child(groupId).child('members').val().includes(auth.uid) || root.child('groups').child(groupId).child('members').val().includes(auth.token.email); })))",
+        ".write": "auth != null && (data.child('createdBy').val() == auth.uid || data.child('createdBy').val() == auth.token.email || (!data.exists() && newData.child('createdBy').val() == auth.uid) || (!data.exists() && newData.child('createdBy').val() == auth.token.email))",
+        ".validate": "newData.hasChildren(['title', 'date', 'type']) && newData.child('title').isString() && newData.child('date').isString() && newData.child('type').isString()"
+      }
+    },
+    "reminders": {
+      "$eventId": {
+        ".read": "auth != null",
+        ".write": false
+      }
+    },
+    "groups": {
+      "$groupId": {
+        ".read": "auth != null && (data.child('createdBy').val() == auth.uid || data.child('createdBy').val() == auth.token.email || (data.child('members').exists() && (data.child('members').hasChildren() ? data.child('members').val().includes(auth.uid) || data.child('members').val().includes(auth.token.email) : false)))",
+        ".write": "auth != null && (data.child('createdBy').val() == auth.uid || data.child('createdBy').val() == auth.token.email || (!data.exists() && newData.child('createdBy').val() == auth.uid) || (!data.exists() && newData.child('createdBy').val() == auth.token.email))",
+        ".validate": "newData.hasChildren(['name', 'members']) && newData.child('name').isString() && newData.child('members').isString() || newData.child('members').hasChildren()"
+      }
+    },
+    "chats": {
+      "$groupId": {
+        ".read": "auth != null && root.child('groups').child($groupId).child('members').val().includes(auth.uid) || root.child('groups').child($groupId).child('members').val().includes(auth.token.email) || root.child('groups').child($groupId).child('createdBy').val() == auth.uid || root.child('groups').child($groupId).child('createdBy').val() == auth.token.email",
+        "messages": {
+          "$messageId": {
+            ".write": "auth != null && (newData.child('sender').val() == auth.uid || newData.child('sender').val() == auth.token.email) && root.child('groups').child($groupId).child('members').val().includes(auth.uid) || root.child('groups').child($groupId).child('members').val().includes(auth.token.email) || root.child('groups').child($groupId).child('createdBy').val() == auth.uid || root.child('groups').child($groupId).child('createdBy').val() == auth.token.email",
+            ".validate": "newData.hasChildren(['sender', 'message', 'timestamp', 'groupId']) && newData.child('sender').isString() && newData.child('message').isString() && newData.child('timestamp').isString() && newData.child('groupId').isString()"
+          }
+        }
+      }
+    },
+    "users": {
+      "$userId": {
+        ".read": "auth != null && ($userId == auth.uid || $userId == auth.token.email)",
+        ".write": "auth != null && $userId == auth.uid",
+        ".validate": "newData.hasChildren(['emailVerified']) && newData.child('emailVerified').isBoolean()"
+      }
+    },
+    ".read": false,
+    ".write": false
+  }
+}
+
